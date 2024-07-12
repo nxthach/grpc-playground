@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package sec06;
+
+option java_multiple_files = true;
+option java_package = "org.example.models.sec06";
+
+import "google/protobuf/empty.proto";
+
+
+message BalanceCheckRequest {
+  int32 account_number = 1;
+}
+
+message AccountBalance {
+  int32 account_number = 1;
+  int32 balance = 2;
+}
+
+message ListAccountBalance {
+  repeated AccountBalance accounts = 1;
+}
+
+message WithdrawRequest {
+  int32 account_number = 1;
+  int32 amount = 2;
+}
+
+message Money {
+  int32 amount = 2;
+}
+
+message DepositRequest{
+  oneof request {
+    int32 account_number = 1;
+    Money money = 2;
+  }
+}
+
+service BankService {
+
+  //unary
+  rpc GetAccountBalance (BalanceCheckRequest) returns (AccountBalance);
+  rpc GetAllAccount(google.protobuf.Empty) returns (ListAccountBalance);
+
+  //server stream
+  rpc Withdraw(WithdrawRequest) returns (stream Money);
+
+  //client stream
+  rpc Deposit(stream DepositRequest) returns (AccountBalance);
+}
+
+message TransferRequest{
+  int32 from_account = 1;
+  int32 to_account = 2;
+  int32 amount = 3;
+}
+
+message TransferResponse{
+  TransferStatus status = 1;
+  AccountBalance from_account = 2;
+  AccountBalance to_account = 3;
+}
+
+enum TransferStatus {
+  REJECTED = 0;
+  COMPLETED = 1;
+}
+
+service TransferService{
+  rpc Transfer(stream TransferRequest) returns (stream TransferResponse);
+}
