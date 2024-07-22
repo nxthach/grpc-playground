@@ -14,9 +14,12 @@ public class ExampleApp {
                         new TransferService(),
                         new FlowControlService(),
                         new GuessNumberService(),
-                        new org.example.sec09.BankService())
+                        new org.example.sec09.BankService(),
+                        new org.example.sec10.BankService())
                 .start()
                 .await();
+
+
 
     }
 }
