@@ -48,8 +48,9 @@ public class ResponseObserver<T> implements StreamObserver<T> {
         this.latch.countDown();
     }
 
-    public void await(){
+    public void await() {
         try {
+            //this.latch.await();
             this.latch.await(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

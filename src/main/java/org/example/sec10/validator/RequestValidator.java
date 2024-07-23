@@ -13,6 +13,8 @@ import static org.example.models.sec10.ValidationCode.*;
 
 public class RequestValidator {
 
+    private static final Metadata.Key<ErrorMessage> ERROR_MSG_KEY = ProtoUtils.keyForProto(ErrorMessage.getDefaultInstance());
+
     public static Optional<StatusRuntimeException> validateAccountNumber(int accountNumber) {
         if (accountNumber > 0 && accountNumber < 11) {
             return Optional.empty();
@@ -49,10 +51,14 @@ public class RequestValidator {
                 .setValidationCode(code)
                 .build();
 
-        var key = ProtoUtils.keyForProto(errorMessage);
-        //var key = ProtoUtils.keyForProto(ErrorMessage.getDefaultInstance());
+        //var key = ProtoUtils.keyForProto(errorMessage);
+        metadata.put(ERROR_MSG_KEY, errorMessage);
 
-        metadata.put(key, errorMessage);
+        // 1 more meta data
+        metadata.put(
+                Metadata.Key.of("code", Metadata.ASCII_STRING_MARSHALLER),
+                code.toString()
+        );
 
         return metadata;
     }
