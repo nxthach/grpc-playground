@@ -1,0 +1,10 @@
+version: "3"
+services:
+  nginx:
+    image: nginx:1.25-alpine
+    volumes:
+      - ./config:/etc/nginx/conf.d
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    ports:
+      - "8585:8585"

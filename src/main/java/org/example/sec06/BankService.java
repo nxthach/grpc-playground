@@ -19,6 +19,8 @@ public class BankService extends BankServiceGrpc.BankServiceImplBase {
             BalanceCheckRequest request,
             StreamObserver<AccountBalance> responseObserver) {
 
+        LOGGER.info("Request received : {}", request.getAccountNumber());
+
         var accountNumber = request.getAccountNumber();
 
         var accountBalance = AccountBalance.newBuilder()
