@@ -27,7 +27,8 @@ public class BankService extends BankServiceGrpc.BankServiceImplBase {
                 .setBalance(AccountRepository.getBalance(accountNumber))
                 .build();
 
-        ((ServerCallStreamObserver<AccountBalance>) responseObserver).setCompression("gzip");
+        //simulate long process
+        Uninterruptibles.sleepUninterruptibly(3, TimeUnit.SECONDS);
 
         responseObserver.onNext(accountBalance);
         responseObserver.onCompleted();

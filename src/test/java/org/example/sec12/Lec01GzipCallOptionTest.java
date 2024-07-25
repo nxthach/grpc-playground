@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Lec01GzipCallOptionTest extends AbstractTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(BalanceCheckRequest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Lec01GzipCallOptionTest.class);
 
     @Test
     public void gzipDemo(){
