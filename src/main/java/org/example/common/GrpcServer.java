@@ -1,6 +1,7 @@
 package org.example.common;
 
 import io.grpc.*;
+import io.grpc.netty.shaded.io.grpc.netty.NettyServerBuilder;
 import org.example.sec01.SimpleProtoDemo;
 import org.example.sec06.BankService;
 import org.slf4j.Logger;
@@ -34,9 +35,9 @@ public class GrpcServer {
 
     }
 
-    public static GrpcServer create(int port, Consumer<ServerBuilder<?>> serverBuilderConsumer){
+    public static GrpcServer create(int port, Consumer<NettyServerBuilder> serverBuilderConsumer){
         var builder = ServerBuilder.forPort(port);
-        serverBuilderConsumer.accept(builder);
+        serverBuilderConsumer.accept((NettyServerBuilder) builder);
 
         return new GrpcServer(builder.build());
 
