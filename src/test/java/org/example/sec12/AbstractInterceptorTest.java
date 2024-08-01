@@ -3,6 +3,7 @@ package org.example.sec12;
 import io.grpc.ClientInterceptor;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.ServerInterceptor;
 import org.example.common.GrpcServer;
 import org.example.models.sec12.BankServiceGrpc;
 import org.example.sec12.interceptors.GzipResponseInterceptor;
